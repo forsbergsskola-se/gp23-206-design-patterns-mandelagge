@@ -168,6 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 407112692626712937, guid: e0dfde233baf04f978123be48615d95e, type: 3}
+  enemyPool: []
+  maxEnemies: 20
+  enemiesToCreate: 0
 --- !u!1 &1546557891
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 1289660090561212086, guid: 3e2d8f3089cbc437c9bed8d454efa6a7, type: 3}
+  maxProjectiles: 15
 --- !u!58 &1546557896
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Castle _castle;
+ 
     
     void Start()
     {
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("OnCollision!");
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        // Destroy(this.gameObject);
     }
 }

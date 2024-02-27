@@ -30,13 +30,15 @@ public class Projectile : MonoBehaviour
         this.transform.Translate(Vector3.up * Time.deltaTime);
         if (this._totalTime > 10f)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
+            _totalTime = 0;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("On Collision!");
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        _totalTime = 0;
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Castle : MonoBehaviour
@@ -10,10 +12,15 @@ public class Castle : MonoBehaviour
     
     const float _maxCooldown = 0.8f;
 
-
+    private List<Projectile> projectilePool = new List<Projectile>();
+    public int maxProjectiles;
+    
     void Start()
     {
         this._enemyLayerMask = LayerMask.GetMask("Enemy");
+
+        for (int i = 0; i < maxProjectiles; i++)
+            CreateNewProjectile();
     }
 
     // Update is called once per frame
@@ -21,6 +28,15 @@ public class Castle : MonoBehaviour
     {
         AcquireTargetIfNecessary();
         TryAttack();
+    }
+    
+    Projectile CreateNewProjectile()
+    {
+        Projectile projectile = Instantiate(this.Projectile, new Vector2(0, 0), Quaternion.identity);
+        projectilePool.Add(projectile);
+        projectile.gameObject.SetActive(false);
+        
+        return projectile;
     }
 
     void AcquireTargetIfNecessary()
@@ -34,14 +50,26 @@ public class Castle : MonoBehaviour
     void TryAttack()
     {
         _currentCooldown -= Time.deltaTime;
-        if (this._target == null || !(_currentCooldown <= 0f)) return;
+        if (this._target == null || !(_currentCooldown <= 0f)) 
+            return;
+        
         this._currentCooldown = _maxCooldown;
         Attack();
     }
 
     void Attack()
     {
-        Instantiate(this.Projectile, this.transform.position, GetTargetDirection());
+        Projectile projectile = projectilePool.FirstOrDefault(en => en.gameObject.activeSelf == false);
+
+        if (projectile == null)
+        {
+            Debug.Log("NO MORE Projectiles IN LIST");
+            return;
+        }
+        
+        projectile.gameObject.SetActive(true);
+        projectile.transform.position = transform.position;
+        projectile.transform.rotation = GetTargetDirection();
     }
 
     Quaternion GetTargetDirection()

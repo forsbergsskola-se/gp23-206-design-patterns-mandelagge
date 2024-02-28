@@ -13,6 +13,8 @@ namespace P3_DirtyFlag
         private Color _computedColor;
         private int _tick;
 
+        private bool _dirtyFlagColor;
+
         #region information on how many updates would've been necessary
         private Color _previousColor; // IGNORE THIS
         private static int _totalUpdateCount; // IGNORE THIS
@@ -27,6 +29,7 @@ namespace P3_DirtyFlag
         void FixedUpdate()
         {
             // This will on random occasion change one or more parameters
+            _dirtyFlagColor = false;
             SimulateVariousChangesOfParameters();
 
             // This will on random occasion return true
@@ -43,14 +46,17 @@ namespace P3_DirtyFlag
             if (randomRoll < 0.2f)
             {
                 SetRed(Random.Range(0, 256));
+                _dirtyFlagColor = true;
             }
             if (randomRoll < 0.05f)
             {
                 SetGreen(Random.Range(0, 256));
+                _dirtyFlagColor = true;
             }
             if (randomRoll < 0.1f)
             {
                 SetBlue(Random.Range(0, 256));
+                _dirtyFlagColor = true;
             }
         }
     
@@ -62,7 +68,7 @@ namespace P3_DirtyFlag
         {
             this._redParameter = red;
             // When the parameter has changed, the computed parameter needs to be updated
-            CalculateComputedDataFromParameters();
+            // CalculateComputedDataFromParameters();
         }
 
         /// <summary>
@@ -73,7 +79,7 @@ namespace P3_DirtyFlag
         {
             this._greenParameter = green;
             // When the parameter has changed, the computed parameter needs to be updated
-            CalculateComputedDataFromParameters();
+            // CalculateComputedDataFromParameters();
         }
 
         /// <summary>
@@ -84,7 +90,7 @@ namespace P3_DirtyFlag
         {
             this._blueParameter = blue;
             // When the parameter has changed, the computed parameter needs to be updated
-            CalculateComputedDataFromParameters();
+            // CalculateComputedDataFromParameters();
         }
 
         /// <summary>
@@ -109,6 +115,10 @@ namespace P3_DirtyFlag
 
         void UtilizeComputedParameter()
         {
+            if(!_dirtyFlagColor)
+                return;
+            
+            CalculateComputedDataFromParameters();
             #region debug information on how many updates would've been necessary
             if (this._previousColor != new Color(_redParameter / 255f, _greenParameter / 255f, _blueParameter / 255f)) // IGNORE THIS
             { // IGNORE THIS

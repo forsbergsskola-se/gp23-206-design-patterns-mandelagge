@@ -10,7 +10,7 @@ namespace P3_DirtyFlag
     
         const float _totalCooldown = 0.2f;
     
-        void FixedUpdate()
+        void Update()
         {
             this._currentCooldown -= Time.deltaTime;
             if (this._currentCooldown <= 0f)

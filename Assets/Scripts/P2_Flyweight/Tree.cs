@@ -18,7 +18,7 @@ namespace P2_Flyweight
             this._spriteRenderer.color = _treeData.GetSeasonColor(_colorIndex);
         }
     
-        void Update()
+        void FixedUpdate()
         {
             _colorIndex++;
             this._spriteRenderer.color = _treeData.GetSeasonColor(_colorIndex);

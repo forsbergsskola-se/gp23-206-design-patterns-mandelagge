@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using Input = UnityEngine.Input;
@@ -8,9 +9,13 @@ namespace P4_SpatialPartitioning
     {
         private Camera _cam;
 
+        private QuadTree _quadTree;
+
         void Start()
         {
             this._cam = Camera.main;
+            _quadTree = FindObjectOfType<CarSpawner>().GetQuadTree();
+            _quadTree.Insert(gameObject);
         }
     
         void Update()
@@ -32,13 +37,19 @@ namespace P4_SpatialPartitioning
 
         GameObject FindClosestCar()
         {
-            var allCars = GameObject.FindGameObjectsWithTag("Car");
+            // var allCars = GameObject.FindGameObjectsWithTag("Car");
+
+            List<GameObject> carsInQuad = _quadTree.Retrieve(new List<GameObject>(), gameObject);
+            
             GameObject closestCar = null;
             float distance = float.PositiveInfinity;
         
             // Problem: We need to check all cars in the scene to find the closest one.
-            foreach (var car in allCars)
+            foreach (var car in carsInQuad)
             {
+                if(car == gameObject)
+                    continue;
+                
                 var currentDistance = CalculateDistanceTo(car.transform);
                 if (currentDistance < distance)
                 {

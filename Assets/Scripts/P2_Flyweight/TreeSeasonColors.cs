@@ -8,28 +8,9 @@ namespace P2_Flyweight
     {
         [SerializeField] private ColorInfo[] colors;
     
-        /// <summary>
-        /// This returns the current color. The value changes every time
-        /// `MoveNext` is invoked.
-        /// </summary>
-        public Color CurrentColor
+        public Color GetSeasonColor(int index)
         {
-            get
-            {
-                var colorInfo = colors[_index];
-                return new Color(colorInfo.r, colorInfo.g, colorInfo.b, 1f);
-            }
+            return new Color(colors[index].r, colors[index].g, colors[index].b);
         }
-
-        /// <summary>
-        /// This makes the Tree move on to the next color
-        /// </summary>
-        public void MoveNext()
-        {
-            _index += 10;
-            _index %= colors.Length;
-        }
-
-        private int _index;
     }
 }

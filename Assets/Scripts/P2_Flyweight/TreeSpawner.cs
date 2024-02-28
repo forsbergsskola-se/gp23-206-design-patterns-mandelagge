@@ -10,14 +10,12 @@ namespace P2_Flyweight
     
         const float _totalCooldown = 0.2f;
 
-        private string fileContents;
-        private TreeData _treeData;
-    
+        private TreeSeasonColors _treeColors;
+        
         private void Awake()
         {
-            // fileContents = Resources.Load<TextAsset>("treeColors").text;
-            _treeData = new TreeData();
-            _treeData.LoadColorInfos();
+            var fileContents = Resources.Load<TextAsset>("treeColors").text;
+            this._treeColors = JsonUtility.FromJson<TreeSeasonColors>(fileContents);
         }
 
 
@@ -38,14 +36,11 @@ namespace P2_Flyweight
             Instantiate(this.TreePrefab, new Vector2(randomPositionX, randomPositionY), Quaternion.identity);
         }
 
-        public string GetColorInfo()
+        public TreeSeasonColors GetSeasonColors()
         {
-            return fileContents;
+            return _treeColors;
         }
 
-        public TreeData GetTreeData()
-        {
-            return _treeData;
-        }
+        
     }
 }

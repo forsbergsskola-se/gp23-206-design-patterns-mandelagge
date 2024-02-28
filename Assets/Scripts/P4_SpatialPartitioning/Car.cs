@@ -1,12 +1,15 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Car : MonoBehaviour
+namespace P4_SpatialPartitioning
 {
-    private SpriteRenderer _spriteRenderer;
-
-    void Start()
+    public class Car : MonoBehaviour
     {
-        GetComponent<SpriteRenderer>().color = Color.HSVToRGB(Random.Range(0f, 1f), 1f, 1f);
+        private SpriteRenderer _spriteRenderer;
+
+        void Start()
+        {
+            GetComponent<SpriteRenderer>().color = Color.HSVToRGB(Random.Range(0f, 1f), 1f, 1f);
+        }
     }
 }

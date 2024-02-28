@@ -1,29 +1,30 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ConsoleSpawner : MonoBehaviour
+namespace P3_DirtyFlag
 {
-    public Console ConsolePrefab;
-    private float _currentCooldown;
-    
-    const float _totalCooldown = 0.2f;
-    
-    void FixedUpdate()
+    public class ConsoleSpawner : MonoBehaviour
     {
-        this._currentCooldown -= Time.deltaTime;
-        if (this._currentCooldown <= 0f)
+        public Console ConsolePrefab;
+        private float _currentCooldown;
+    
+        const float _totalCooldown = 0.2f;
+    
+        void FixedUpdate()
         {
-            this._currentCooldown += _totalCooldown;
-            SpawnConsole();
+            this._currentCooldown -= Time.deltaTime;
+            if (this._currentCooldown <= 0f)
+            {
+                this._currentCooldown += _totalCooldown;
+                SpawnConsole();
+            }
         }
-    }
 
-    void SpawnConsole()
-    {
-        var randomPositionX = Random.Range(-6f, 6f);
-        var randomPositionY = Random.Range(-6f, 6f);
-        Instantiate(this.ConsolePrefab, new Vector2(randomPositionX, randomPositionY), Quaternion.identity);
+        void SpawnConsole()
+        {
+            var randomPositionX = Random.Range(-6f, 6f);
+            var randomPositionY = Random.Range(-6f, 6f);
+            Instantiate(this.ConsolePrefab, new Vector2(randomPositionX, randomPositionY), Quaternion.identity);
+        }
     }
 }

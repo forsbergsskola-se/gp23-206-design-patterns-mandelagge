@@ -1,7 +1,10 @@
 using System;
 
-[Serializable]
-public struct ColorInfo
+namespace P2_Flyweight
 {
-    public float r, g, b;
+    [Serializable]
+    public struct ColorInfo
+    {
+        public float r, g, b;
+    }
 }
